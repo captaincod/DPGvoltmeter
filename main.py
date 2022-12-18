@@ -25,7 +25,6 @@ with dpg.font_registry():
 gauss_distr = []
 last_values = []
 
-
 def show_avg():
     value = int(dpg.get_value("slider"))
     avg = 0
@@ -38,8 +37,11 @@ def show_avg():
     else:
         str_avg = "%.2f" % (avg / value)
         dpg.set_value("average", f"Среднее за {value} сек: {str_avg}V")
-    kitten_tag = f"kitten{random.randint(1, 7)}"
-    dpg.configure_item("btn_image", texture_tag=kitten_tag)
+    current_kitten = int(dpg.get_item_configuration("btn_image")["texture_tag"][-1])
+    new_kitten = current_kitten
+    while new_kitten == current_kitten:
+        new_kitten = random.randint(1, 7)
+    dpg.configure_item("btn_image", texture_tag=f"kitten{new_kitten}")
 
 
 with dpg.window(width=700, height=500, tag="Primary Window"):
@@ -52,7 +54,7 @@ with dpg.window(width=700, height=500, tag="Primary Window"):
         dpg.add_text("Период в секундах: ")
         dpg.add_slider_int(tag="slider", default_value=10, width=300, min_value=3, max_value=30)
     dpg.add_image_button(tag="btn_image", texture_tag="kitten1", width=200, height=120, background_color=(255, 230, 204),
-                         callback=lambda fuck_this_error: show_avg())
+                         callback=show_avg)
     with dpg.tooltip("btn_image"):
         dpg.add_text(tag="btn_label", default_value="Показать среднее за период")
         dpg.bind_item_font("btn_label", secondary_font)
