@@ -3,6 +3,7 @@
 [Техническое задание](https://docs.google.com/document/d/11PkCkOI4zQCVTf7OWjwZjcUPYADQXh5uPL7oAx-Y_-0/edit?usp=sharing)  
 **Update**: добавлена правка - по нажатию на кнопку котёнок на ней меняется  
 ![image](https://user-images.githubusercontent.com/46486971/208298881-3618f337-08c7-4c7c-834f-d44e8280ade3.png)
+![demo](https://user-images.githubusercontent.com/46486971/208300748-3d16838b-139d-42a5-9a8d-9c74efdf374e.gif)
 
 Работа по представлению графической информации в реальном времени.  
 Цель задания:
