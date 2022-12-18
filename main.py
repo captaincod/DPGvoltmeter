@@ -1,14 +1,18 @@
+import random
+
 import dearpygui.dearpygui as dpg
 import numpy as np
 
 dpg.create_context()
-dpg.create_viewport(title='DPG Funny Friendly Voltmeter RU', min_width=700, max_width=700, min_height=400, max_height=400)
+dpg.create_viewport(title='Funny Friendly Voltmeter With Kittens', min_width=700, max_width=700, min_height=400, max_height=400)
 dpg.setup_dearpygui()
 dpg.show_viewport()
 
-width, height, channels, data = dpg.load_image("src/kitten.png")
 with dpg.texture_registry():
-    dpg.add_static_texture(width=width, height=height, default_value=data, tag="texture_tag")
+    for i in range(1, 8):
+        width, height, channels, data = dpg.load_image(f"src/kitten{i}.png")
+        kitten_tag = f"kitten{i}"
+        dpg.add_static_texture(width=width, height=height, default_value=data, tag=kitten_tag)
 
 with dpg.font_registry():
     with dpg.font(r"src/minecraft.ttf", 20, default_font=True) as default_font:
@@ -34,6 +38,8 @@ def show_avg():
     else:
         str_avg = "%.2f" % (avg / value)
         dpg.set_value("average", f"Среднее за {value} сек: {str_avg}V")
+    kitten_tag = f"kitten{random.randint(1, 7)}"
+    dpg.configure_item("btn_image", texture_tag=kitten_tag)
 
 
 with dpg.window(width=700, height=500, tag="Primary Window"):
@@ -45,7 +51,7 @@ with dpg.window(width=700, height=500, tag="Primary Window"):
     with dpg.group(horizontal=True):
         dpg.add_text("Период в секундах: ")
         dpg.add_slider_int(tag="slider", default_value=10, width=300, min_value=3, max_value=30)
-    dpg.add_image_button(tag="btn_image", texture_tag="texture_tag", width=200, height=120, background_color=(255, 230, 204),
+    dpg.add_image_button(tag="btn_image", texture_tag="kitten1", width=200, height=120, background_color=(255, 230, 204),
                          callback=lambda fuck_this_error: show_avg())
     with dpg.tooltip("btn_image"):
         dpg.add_text(tag="btn_label", default_value="Показать среднее за период")
